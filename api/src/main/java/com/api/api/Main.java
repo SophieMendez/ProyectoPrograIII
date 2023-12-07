@@ -39,9 +39,9 @@ public class Main {
     private static JdbcTemplate configureJdbcTemplate() {
         DriverManagerDataSource dataSource = new DriverManagerDataSource();
         dataSource.setDriverClassName("com.mysql.cj.jdbc.Driver");
-        dataSource.setUrl("jdbc:mysql://localhost:3306/tuBaseDeDatos");
-        dataSource.setUsername("tuUsuario");
-        dataSource.setPassword("tuContraseña");
+        dataSource.setUrl("dbc:mysql://localhost:3306/finalproject");
+        dataSource.setUsername("root");
+        dataSource.setPassword("Nacho07.");
 
         return new JdbcTemplate(dataSource);
     }
