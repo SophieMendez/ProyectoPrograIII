@@ -20,28 +20,30 @@ public class DatabaseService {// inicio de llaves class
     }
      public List<Notas> getAllNotes() {
         try {
-            String query = "SELECT * FROM finalproject.notas";
-            List<Map<String, Object>> respNotes = jdbcTemplate.queryForList(query);
-            List<Notas> notes = new ArrayList<>();
+            String query = "SELECT * FROM finalproject.notas"; // Define la consulta SQL
+            List<Map<String, Object>> respNotes = jdbcTemplate.queryForList(query); //Ejecutar la consulta y obtener los resultados
+            List<Notas> notes = new ArrayList<>(); //Prcesa los resultados y mapearlos a objetos Notas
  
-            for (Map<String, Object> row : respNotes) {
+            for (Map<String, Object> row : respNotes) { //Obtiene los valores de cada columna en la fila
                 int id_nota = (int) row.get("id_nota");
                 String nombre_nota = (String) row.get("nombre_nota");
                 String estado_nota = (String) row.get("estado_nota");
                 String descripcion_nota = (String) row.get("descripcion_nota");
-                Notas notas = new Notas(id_nota, nombre_nota, estado_nota, descripcion_nota);
-                notes.add(notas);
+                Notas notas = new Notas(id_nota, nombre_nota, estado_nota, descripcion_nota); //Crea objeto Notas con los valores de la fila
+                notes.add(notas); //Agrega el objeto Notas a la lista
             }
-            return notes;
+            return notes; //devuelve
         } catch (Exception e) {
             e.printStackTrace();
             return null;
         }
     }
-    public Notas getNotas(int id){
+    public Notas getNotas(int id){  // Pide el id
         System.out.println("logId = " + id);
         try {
-            String query = "SELECT * FROM notas WHERE id_nota = ?";
+            String query = "SELECT * FROM notas WHERE id_nota = ?"; //Definir la consulta SQL con un parámetro de id
+
+           // Ejecuta la consulta y mapear el resultado a un objeto Notas
  
             return jdbcTemplate.queryForObject(query, (rs, rowNum) -> {
                 int id_nota = (int)rs.getInt("id_nota");
@@ -49,6 +51,7 @@ public class DatabaseService {// inicio de llaves class
                 String estado_nota = rs.getString("estado_nota");
                 String descripcion_nota = rs.getString("descripcion_nota");
               
+                //Crea y devuelve un objeto Notas con los valores obtenidos
                 return new Notas(id_nota, nombre_nota, estado_nota, descripcion_nota);
             }, id);
         } catch (Exception e) {

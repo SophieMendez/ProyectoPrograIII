@@ -37,7 +37,7 @@ public class MyRestController {
         return databaseService.getNotas(id);    
     }
 
-    @PutMapping("/byid")
+    @PutMapping("/byid") //PUT
     public void update(String nombre, String descripcion, int id) {
  
         Notas notas = new Notas(id, nombre, nombre, descripcion);
