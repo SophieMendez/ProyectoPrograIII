@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import com.api.api.Notas;
 import com.api.api.User;
 
+
 @Service
 public class DatabaseService {// inicio de llaves class
     @Autowired
@@ -92,14 +93,82 @@ public class DatabaseService {// inicio de llaves class
         try {
             String query = "SELECT * FROM usuarios WHERE username = ? AND password = ?";
             return jdbcTemplate.queryForObject(query, (rs, rowNum) -> {
+                int id = rs.getInt("id"); // Asumiendo que existe un campo "id" en tu tabla
                 String storedUsername = rs.getString("username");
                 String storedPassword = rs.getString("password");
-                return new User(storedUsername, storedPassword);
+                return new User(id, storedUsername, storedPassword);
             }, username, password);
         } catch (Exception e) {
             e.printStackTrace();
             return null;
         }
     }
+    
+
+    public List<User> getAllUsers() {
+        try {
+            String query = "SELECT * FROM usuarios";
+            List<Map<String, Object>> respUsers = jdbcTemplate.queryForList(query);
+            List<User> users = new ArrayList<>();
+    
+            for (Map<String, Object> row : respUsers) {
+                int id = (int) row.get("id");
+                String username = (String) row.get("username");
+                String password = (String) row.get("password");
+                User user = new User(id, username, password);
+                users.add(user);
+            }
+    
+            return users;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+    
+    public User getUserById(int id) {
+        try {
+            String query = "SELECT * FROM usuarios WHERE id = ?";
+            return jdbcTemplate.queryForObject(query, (rs, rowNum) -> {
+                String username = rs.getString("username");
+                String password = rs.getString("password");
+                return new User(id, username, password);
+            }, id);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+    
+
+    public void updateUser(User user) {
+        try {
+            String query = "UPDATE usuarios SET username = ?, password = ? WHERE id = ?";
+            jdbcTemplate.update(query, user.getUsername(), user.getPassword(), user.getId());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void insertUser(User user) {
+        try {
+            String query = "INSERT INTO usuarios (username, password) VALUES (?, ?)";
+            jdbcTemplate.update(query, user.getUsername(), user.getPassword());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void deleteUser(int id) {
+        try {
+            String query = "DELETE FROM usuarios WHERE id = ?";
+            jdbcTemplate.update(query, id);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+
+
     
 }//Final de la llave class

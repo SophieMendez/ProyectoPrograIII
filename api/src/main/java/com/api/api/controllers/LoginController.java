@@ -45,4 +45,5 @@ public class LoginController {
     public boolean isAuthenticated() {
         return authenticatedUser != null;
     }
+    
 }
