@@ -1,41 +1,36 @@
 package com.api.api;
 
-public class User {
+import java.io.Serializable;
 
-    private int id;
-    private String username;
-    private String password;
 
-    // Constructor con parámetros
+public class User implements Serializable {
+
+    private final int id;
+    private final String username;
+    private final String password;
+
     public User(int id, String username, String password) {
+        // Validación de datos (puedes personalizar esto según tus necesidades)
+        if (username == null || username.isEmpty() || password == null || password.isEmpty()) {
+            throw new IllegalArgumentException("Username and password cannot be null or empty");
+        }
+
         this.id = id;
         this.username = username;
         this.password = password;
     }
 
-    // Getters y setters
-
     public int getId() {
         return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 
     public String getUsername() {
         return username;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
     public String getPassword() {
         return password;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
-    }
+ 
 }

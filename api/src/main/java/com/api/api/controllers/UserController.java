@@ -7,10 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
 
 @RestController
 @RequestMapping("/api/users")
@@ -35,11 +31,12 @@ public class UserController {
         databaseService.updateUser(user);
     }
 
-    @PostMapping
-    public void insertUser(@RequestParam String username, @RequestParam String password) {
-        User user = new User(0, username, password);
-        databaseService.insertUser(user);
-    }
+ @PostMapping
+public void insertUser(@RequestParam String username, @RequestParam String password) {
+    User user = new User(0, username, password);
+    databaseService.insertUser(user);
+}
+
 
     @DeleteMapping("/{id}")
     public void deleteUser(@PathVariable int id) {

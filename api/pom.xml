@@ -17,10 +17,7 @@
 		<java.version>17</java.version>
 	</properties>
 	<dependencies>
-	<dependency><!-- Inicia aca dependecias externas-->
-    <groupId>org.springframework.boot</groupId>
-    <artifactId>spring-boot-starter-security</artifactId>
-    </dependency>
+	
 	<dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
@@ -65,11 +62,6 @@
 		</plugins>
 	</build>
 <dependency>
-    <groupId>mysql</groupId>
-    <artifactId>mysql-connector-java</artifactId>
-    <version>8.0.23</version> <!-- Utiliza la versión adecuada -->
-</dependency>
-<dependency>
     <groupId>org.springframework.boot</groupId>
     <artifactId>spring-boot-starter-data-jpa</artifactId>
 </dependency>
@@ -77,5 +69,19 @@
     <groupId>org.hibernate</groupId>
     <artifactId>hibernate-core</artifactId>
 </dependency>
+
+<dependency>
+    <groupId>mysql</groupId>
+    <artifactId>mysql-connector-java</artifactId>
+    <version>8.0.26</version> <!-- Puedes cambiar la versión según tus necesidades -->
+</dependency>
+ <!-- 
+	Metodo para seguridad, tuve que quitarlo debido a que no me estaba permitiendo validar
+	<dependency>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-starter-security</artifactId>
+</dependency>
+
+  -->
 
 </project>

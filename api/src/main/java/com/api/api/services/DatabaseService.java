@@ -89,19 +89,9 @@ public class DatabaseService {// inicio de llaves class
             return 0;
         }
     }
-    public User authenticate(String username, String password) {
-        try {
-            String query = "SELECT * FROM usuarios WHERE username = ? AND password = ?";
-            return jdbcTemplate.queryForObject(query, (rs, rowNum) -> {
-                int id = rs.getInt("id"); // Asumiendo que existe un campo "id" en tu tabla
-                String storedUsername = rs.getString("username");
-                String storedPassword = rs.getString("password");
-                return new User(id, storedUsername, storedPassword);
-            }, username, password);
-        } catch (Exception e) {
-            e.printStackTrace();
-            return null;
-        }
+    public void insertDefaultUser() {
+        User defaultUser = new User(1,"default", "123");
+        insertUser(defaultUser);
     }
     
 
