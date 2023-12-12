@@ -51,9 +51,9 @@ public class MyRestController {
     @PostMapping("/login")
     public User loginUser(String username, String password) {
 
-    User  tmpUser =  databaseService.authenticateUser(username,password) ;
-    tmpUser.setJTW();
-    return tmpUser;
+    //User  tmpUser =  databaseService.authenticateUser(username,password) ;
+    //tmpUser.setJTW();
+    //return tmpUser;
     }
 
     @DeleteMapping("/byid")
