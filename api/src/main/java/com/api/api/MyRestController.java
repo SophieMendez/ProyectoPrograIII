@@ -48,13 +48,17 @@ public class MyRestController {
         databaseService.insertNotas(notas) ;
     }
 
+
     @PostMapping("/login")
     public User loginUser(String username, String password) {
+     User authenticatedUser = databaseService.authenticateUser(username, password);
 
     //User  tmpUser =  databaseService.authenticateUser(username,password) ;
     //tmpUser.setJTW();
     //return tmpUser;
-    }
+    return authenticatedUser;
+    } 
+
 
     @DeleteMapping("/byid")
     public void delete(int id) {

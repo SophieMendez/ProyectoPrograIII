@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
 
@@ -43,24 +44,24 @@ public class DatabaseService {// inicio de llaves class
 
     //Inicio login
     public User authenticateUser(String username, String password) {
-        System.out.println("logId = " + username);
-        try {
-            String query = "SELECT * proyectoapi.users WHERE Username = ? and Password =?";
-
-            return jdbcTemplate.queryForObject(query, (rs, rowNum) -> {
-                int userID = (int)rs.getInt("UserID");
-                String user_name = rs.getString("Username");
-                String user_password = rs.getString("Password");
-                String email = rs.getString("Email");
-              //   public User( String username,String email, String password) {
-        
-                return new User(userID, user_name,email, user_password);
-            }, username, password);
-        } catch (Exception e) {
-            e.printStackTrace();
-            return null;
-        }
+    System.out.println("logId = " + username);
+    try {
+        String query = "SELECT * FROM proyectoapi.users WHERE Username = ? and Password =?";
+        return jdbcTemplate.queryForObject(query, (rs, rowNum) -> {
+            int userID = rs.getInt("UserID");
+            String user_name = rs.getString("Username");
+            String user_password = rs.getString("Password");
+            String email = rs.getString("Email");
+            return new User(userID, user_name, email, user_password);
+        }, username, password);
+    } catch (EmptyResultDataAccessException e) {
+        // Maneja el caso en el que no se encuentra ningún usuario
+        return null; // Puedes cambiar esto según tus necesidades
+    } catch (Exception e) {
+        e.printStackTrace();
+        return null;
     }
+}
     //Final login
 
     public Notas getNotas(int id){
